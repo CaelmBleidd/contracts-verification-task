@@ -1,0 +1,10 @@
+fun t() {}
+fun t() {}
+fun t(a) {}
+
+fun duplicates(a, a, a) {}
+
+fun foo(x) {
+  x = duplicates(1, 1, 1);
+  x = duplicates();
+}

@@ -1,0 +1,7 @@
+ERROR: line 1: Function t with 0 arguments is declared twice times or more in 1, 2 lines
+ERROR: line 5: Parameter a occurred twice or more times in function declaration
+ERROR: line 8: Return value of duplicates is required, but the function doesn't return anything
+WARNING: line 8: Argument in duplicates is always 1
+WARNING: line 8: Argument in duplicates is always 1
+WARNING: line 8: Argument in duplicates is always 1
+ERROR: line 9: Function call to duplicates with 0 arguments without it declaration
