@@ -4,3 +4,4 @@ ERROR: line 6: Duplicate declaration of variable 'x'
 ERROR: line 7: Function call 'fact' with 0 arguments without it declaration
 ERROR: line 8: Return value of 'withoutreturn' is required, but the function doesn't return anything
 WARNING: line 9: Assignment variable 'y' to itself
+WARNING: line 12: Function 'withoutreturn' has empty body

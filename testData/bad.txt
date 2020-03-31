@@ -1,1 +1,2 @@
 ERROR: line 3: Variable 'x' is accessed before initialization
+WARNING: line 7: Function 'bar' has empty body

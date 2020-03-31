@@ -1,9 +1,13 @@
 ERROR: line 1: Function 't' with 0 arguments is declared twice times or more in 1, 2 lines
+WARNING: line 1: Function 't' has empty body
+WARNING: line 2: Function 't' has empty body
+WARNING: line 3: Function 't' has empty body
 ERROR: line 5: Parameter 'a' occurred twice or more times in function declaration
+WARNING: line 5: Function 'duplicates' has empty body
 ERROR: line 8: Return value of 'duplicates' is required, but the function doesn't return anything
 ERROR: line 9: Function call 'duplicates' with 0 arguments without it declaration
 WARNING: line 13: Function returns const
-ERROR: line 16: Function 'returnduplicates' has two or more return statements
+ERROR: line 16: Occurred many return statements
 WARNING: line 16: Unreachable code after line 17 because of return statement
 WARNING: line 17: Function returns const
 WARNING: line 18: Function returns const

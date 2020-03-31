@@ -24,6 +24,7 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
         checkParametersForDuplicates(function)
         checkDuplicateReturnStatements(function)
         checkIfReturnNotLastStatement(function)
+        checkIfBodyIsEmpty(function)
 
         variables += function.parameters.map { Pair(it, true) }
         for (statement in function.body.statements) {
@@ -46,6 +47,13 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
         }
     }
 
+    private fun checkIfBodyIsEmpty(function: FunctionDeclaration) {
+        if (function.body.statements.isEmpty()) {
+            reportEmptyFunctionBody(function)
+        }
+    }
+
+
     private fun checkIfReturnNotLastStatement(function: FunctionDeclaration) {
         val returnStatement = function.body.statements.find { it is ReturnStatement } ?: return
         if (returnStatement != function.body.statements.last()) {
@@ -54,9 +62,20 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
     }
 
     private fun checkDuplicateReturnStatements(function: FunctionDeclaration) {
-        if (function.body.statements.filterIsInstance<ReturnStatement>().size > 1) {
+        val ifContainsManyReturns =
+                function.body.statements.filterIsInstance<IfStatement>().map {
+                    it.thenBlock.statements.filterIsInstance<ReturnStatement>().size > 1 ||
+                            (if (it.elseBlock != null) {
+                                it.elseBlock.statements.filterIsInstance<ReturnStatement>().size > 1
+                            } else {
+                                false
+                            })
+                }.any { it }
+
+        if (function.body.statements.filterIsInstance<ReturnStatement>().size > 1 || ifContainsManyReturns) {
             reportDuplicateReturnStatements(function)
         }
+
     }
 
     private fun checkAssignment(statement: Assignment,
@@ -150,6 +169,12 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
                              functionNames: java.util.HashSet<String>,
                              functions: Set<FunctionDeclaration>) {
         val blockVariables = hashMapOf<String, Boolean>()
+
+        if (block.statements.isEmpty()) {
+            reportEmptyIfBlock(block)
+            return
+        }
+
         for (statement in block.statements) {
             when (statement) {
                 is Assignment -> {
@@ -171,6 +196,7 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
             }
         }
     }
+
 
     private fun checkVariableDeclaration(statement: VariableDeclaration,
                                          variables: HashMap<String, Boolean>,
@@ -213,7 +239,7 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
     private fun checkParametersForDuplicates(function: FunctionDeclaration) {
         if (function.parameters.distinct().size != function.parameters.size) {
             val variables = hashSetOf<String>()
-            val duplicates  = hashSetOf<String>()
+            val duplicates = hashSetOf<String>()
             for (variable in function.parameters) {
                 if (variable in variables) {
                     duplicates.add(variable)
@@ -302,10 +328,10 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
                 ReportType.WARNING)
     }
 
-    private fun reportDuplicateReturnStatements(function: FunctionDeclaration) {
+    private fun reportDuplicateReturnStatements(element: Element) {
         reporter.report(
-                function,
-                "Function '${function.name}' has two or more return statements",
+                element,
+                "Occurred many return statements",
                 ReportType.ERROR
         )
     }
@@ -369,4 +395,11 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
                 ReportType.WARNING)
     }
 
+    private fun reportEmptyFunctionBody(function: FunctionDeclaration) {
+        reporter.report(function, "Function '${function.name}' has empty body", ReportType.WARNING)
+    }
+
+    private fun reportEmptyIfBlock(block: Block) {
+        reporter.report(block, "Empty block, can be safely removed", ReportType.WARNING)
+    }
 }

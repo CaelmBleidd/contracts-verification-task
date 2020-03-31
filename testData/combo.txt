@@ -1,5 +1,9 @@
 ERROR: line 3: Function 'dup' with 0 arguments is declared twice times or more in 3, 4 lines
+WARNING: line 3: Function 'dup' has empty body
+WARNING: line 4: Function 'dup' has empty body
+WARNING: line 5: Function 'dup' has empty body
 ERROR: line 7: Parameter 'a' occurred twice or more times in function declaration
+WARNING: line 7: Function 'duplicates' has empty body
 WARNING: line 11: Unused expression
 WARNING: line 12: Return value of function 'return3' is ignored
 ERROR: line 14: Variable 'x' is accessed before declaration
@@ -9,15 +13,20 @@ ERROR: line 20: Duplicate declaration of variable 'a'
 ERROR: line 21: Function call 'dup' with 2 arguments without it declaration
 WARNING: line 22: Assignment variable 'a' to itself
 ERROR: line 23: Assignment variable 'k' in without declaration
+ERROR: line 26: Occurred many return statements
 WARNING: line 28: Boolean const uses in condition, so 'else' block is unreachable
-WARNING: line 34: Boolean const uses in condition, so 'then' block is unreachable
-WARNING: line 40: Boolean const uses in condition, so 'then' block can be removed
-WARNING: line 44: Boolean const uses in condition, so if can be removed
-WARNING: line 48: Non boolean variables uses in condition
-WARNING: line 56: Unreachable code after line 57 because of return statement
-WARNING: line 57: Function returns const
-ERROR: line 64: Function 'returns' has two or more return statements
-WARNING: line 64: Unreachable code after line 66 because of return statement
-ERROR: line 67: Duplicate declaration of variable 'x'
-ERROR: line 69: Duplicate declaration of variable 'x'
-WARNING: line 74: Function returns const
+WARNING: line 30: Function returns const
+WARNING: line 31: Function returns const
+WARNING: line 36: Boolean const uses in condition, so 'then' block is unreachable
+WARNING: line 42: Boolean const uses in condition, so 'then' block can be removed
+WARNING: line 46: Boolean const uses in condition, so if can be removed
+WARNING: line 50: Non boolean variables uses in condition
+WARNING: line 54: Empty block, can be safely removed
+WARNING: line 60: Unreachable code after line 61 because of return statement
+WARNING: line 61: Function returns const
+ERROR: line 68: Occurred many return statements
+WARNING: line 68: Unreachable code after line 70 because of return statement
+ERROR: line 71: Duplicate declaration of variable 'x'
+ERROR: line 73: Duplicate declaration of variable 'x'
+WARNING: line 78: Function returns const
+WARNING: line 81: Function 'empty' has empty body
