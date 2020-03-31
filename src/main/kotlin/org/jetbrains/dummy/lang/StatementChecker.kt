@@ -28,8 +28,10 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
         variables += function.parameters.map { Pair(it, true) }
         for (statement in function.body.statements) {
             when (statement) {
-                is Assignment ->
+                is Assignment -> {
                     checkAssignment(statement, variables, functionsName, functions)
+                    variables[statement.variable] = true;
+                }
                 is IfStatement ->
                     checkIfStatement(statement, variables, functionsName, functions)
                 is VariableDeclaration -> {
@@ -111,16 +113,21 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
                     checkFunctionCall(argument, variables, functionNames, functions)
                 }
                 is VariableAccess -> checkVariableAccess(argument, variables)
-                is IntConst, is BooleanConst -> reportArgumentIsConst(functionCall, argument)
+                is IntConst, is BooleanConst -> return
             }
         }
     }
 
     private fun checkVariableAccess(rhs: VariableAccess, variables: HashMap<String, Boolean>) {
-        if (!variables.containsKey(rhs.name) || !variables[rhs.name]!!) {
+        if (!variables.containsKey(rhs.name)) {
+            reportAccessBeforeDeclaration(rhs);
+            return;
+        }
+        if (!variables[rhs.name]!!) {
             reportAccessBeforeInitialization(rhs)
         }
     }
+
 
     private fun checkIfStatement(statement: IfStatement,
                                  variables: HashMap<String, Boolean>,
@@ -145,7 +152,10 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
         val blockVariables = hashMapOf<String, Boolean>()
         for (statement in block.statements) {
             when (statement) {
-                is Assignment -> checkAssignment(statement, variables, functionNames, functions)
+                is Assignment -> {
+                    checkAssignment(statement, variables, functionNames, functions)
+                    variables[statement.variable] = true
+                }
                 is IfStatement -> checkIfStatement(statement, variables, functionNames, functions)
                 is VariableDeclaration -> {
                     checkVariableDeclaration(
@@ -257,14 +267,14 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
     }
 
     private fun reportFunctionValueIgnored(expression: FunctionCall) {
-        reporter.report(expression, "Return value of function ${expression.function} is ignored",
+        reporter.report(expression, "Return value of function '${expression.function}' is ignored",
                 ReportType.WARNING)
     }
 
 
     private fun reportDoubleFunctionDeclaration(functions: List<FunctionDeclaration>) {
         val message =
-                "Function ${functions.first().name} with ${functions.first().parameters.size} arguments" +
+                "Function '${functions.first().name}' with ${functions.first().parameters.size} arguments" +
                         " is declared twice times or more in ${functions.map { it.line }.joinToString()} lines"
         reporter.report(functions.first(), message, ReportType.ERROR)
     }
@@ -278,6 +288,14 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
         )
     }
 
+    private fun reportAccessBeforeDeclaration(variable: VariableAccess) {
+        reporter.report(
+                variable,
+                "Variable '${variable.name}' is accessed before declaration",
+                ReportType.ERROR
+        )
+    }
+
     private fun reportUnreachableCode(function: FunctionDeclaration, returnStatement: Statement) {
         reporter.report(function,
                 "Unreachable code after line ${returnStatement.line} because of return statement",
@@ -287,45 +305,39 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
     private fun reportDuplicateReturnStatements(function: FunctionDeclaration) {
         reporter.report(
                 function,
-                "Function ${function.name} has two or more return statements",
+                "Function '${function.name}' has two or more return statements",
                 ReportType.ERROR
         )
     }
 
     private fun reportUseValueInFunctionCallWithoutReturnValue(functionCall: FunctionCall) {
         reporter.report(functionCall,
-                "Return value of ${functionCall.function} is required"
+                "Return value of '${functionCall.function}' is required"
                         + ", but the function doesn't return anything",
                 ReportType.ERROR)
     }
 
-    private fun reportArgumentIsConst(functionCall: FunctionCall, argument: Expression) {
-        reporter.report(argument,
-                "Argument in ${functionCall.function} is always" +
-                        " ${if (argument is IntConst) argument.value else (argument as BooleanConst).value}",
-                ReportType.WARNING)
-    }
 
     private fun reportDoubleVariableDeclaration(statement: VariableDeclaration) {
         reporter.report(statement,
-                "Duplicate declaration of variable ${statement.name}",
+                "Duplicate declaration of variable '${statement.name}'",
                 ReportType.ERROR)
     }
 
     private fun reportFunctionCallWithoutFunctionDeclaration(functionCall: FunctionCall) {
-        reporter.report(functionCall, "Function call to ${functionCall.function} with " +
+        reporter.report(functionCall, "Function call '${functionCall.function}' with " +
                 "${functionCall.arguments.size} arguments without" +
                 " it declaration", ReportType.ERROR)
     }
 
 
     private fun reportAssignmentVariableToItself(statement: Assignment) {
-        reporter.report(statement, "Assignment variable ${statement.variable} to itself",
+        reporter.report(statement, "Assignment variable '${statement.variable}' to itself",
                 ReportType.WARNING)
     }
 
     private fun reportAssignmentBeforeDeclaration(statement: Assignment) {
-        reporter.report(statement, "Assignment variable ${statement.variable} in without declaration",
+        reporter.report(statement, "Assignment variable '${statement.variable}' in without declaration",
                 ReportType.ERROR)
     }
 
@@ -333,23 +345,23 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
         val message = StringBuilder("Boolean const uses in condition, so")
         if (statement.elseBlock != null) {
             message.append(
-                    " ${if ((statement.condition as BooleanConst).value) "else" else "then"} block is unreachable")
+                    " ${if ((statement.condition as BooleanConst).value) "'else'" else "'then'"} block is unreachable")
         } else {
             message.append(
                     " ${if ((statement.condition as BooleanConst).value) "if can be removed"
-                    else "then block can be removed"}"
+                    else "'then' block can be removed"}"
             )
         }
         reporter.report(statement.condition, message.toString(), ReportType.WARNING)
     }
 
     private fun reportDuplicatesInParametersFunction(function: FunctionDeclaration, parameterName: String) {
-        reporter.report(function, "Parameter $parameterName occurred twice or more " +
+        reporter.report(function, "Parameter '$parameterName' occurred twice or more " +
                 "times in function declaration", ReportType.ERROR)
     }
 
     private fun reportFunctionReturnsConst(result: ReturnStatement) {
-        reporter.report(result, "Function always returns ${result.result}", ReportType.WARNING)
+        reporter.report(result, "Function returns const", ReportType.WARNING)
     }
 
     private fun reportNonBooleanValueInIfStatement(condition: IntConst) {

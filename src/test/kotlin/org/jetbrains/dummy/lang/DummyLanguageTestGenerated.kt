@@ -14,6 +14,11 @@ class DummyLanguageTestGenerated : AbstractDummyLanguageTest() {
     }
     
     @Test
+    fun testCombo() {
+        doTest("testData/combo.dummy")
+    }
+    
+    @Test
     fun testFunctions() {
         doTest("testData/functions.dummy")
     }

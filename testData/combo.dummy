@@ -1,0 +1,77 @@
+// Here will be examples with comments
+
+fun dup() {} // duplicates function dup()
+fun dup() {}
+fun dup(a) {} // overloading function dup with one argument, not a duplicate
+
+fun duplicates(a, a, a) {} // to many a, error
+
+fun test() {
+    var u = 5;
+    u; // u, and what? Warning unused expression
+    return3(); // unused expression and return value of function is ignored
+    empty(); // just call function, without warning, because empty doesn't return anything
+    dup(x); // access to x without declaration
+    var x;
+    dup(x); // access to x without initialization
+
+    var a = empty(); // error, because empty doesn't return anything
+    a = unreachable(); // it's ok
+    var a = unreachable(); // duplicate declaration
+    a = dup(1, 2); // error, there is no function dup with two arguments
+    a = a; // warning, because it looks like a mistake
+    k = 3; // What is k? Error
+}
+
+fun ifstatements() {
+    var x = 5;
+    if (true) {
+        x = 1;
+    } else {
+        x = 0; // unreachable code
+    }
+
+    if (false) {
+        x = 1; // unreachable code
+    } else {
+        x = 0;
+    }
+
+    if (false) {
+         x = 5; // can just remove all if
+    }
+
+    if (true) {
+         x = 6; // can just remove if and write only this line
+    }
+
+    if (3) {
+        x = 5; // it's dummy, but not c++. Is 3 ok? For the first time warning
+    }
+
+    return x;
+}
+
+
+fun unreachable() {
+    return 1;
+
+    var x;  // unreachable code
+    x = 5;
+    dup(x);
+}
+
+fun returns() {
+    var x = 5; // too many return statements, error
+    return x;
+    var x = 6;
+    return x;
+    var x = 8;
+    return x;
+}
+
+fun return3() {
+    return 3; // function returns const, warning
+}
+
+fun empty() {}

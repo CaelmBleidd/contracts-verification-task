@@ -60,6 +60,11 @@ func_call
     : ID LEFT_BR (expr (COMMA expr)*)? RIGHT_BR
     ;
 
+RETURN
+    : 'return'
+    ;
+
+
 VAR
     : 'var'
     ;
@@ -138,6 +143,3 @@ COMMA
     : ','
     ;
 
-RETURN
-    : 'return'
-    ;

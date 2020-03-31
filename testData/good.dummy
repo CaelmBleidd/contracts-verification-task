@@ -7,7 +7,6 @@ fun test() {
     if (b) {
         bar(x);
     }
-    return;
 }
 
 fun bar(x) {}

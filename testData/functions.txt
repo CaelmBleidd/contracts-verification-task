@@ -1,7 +1,11 @@
-ERROR: line 1: Function t with 0 arguments is declared twice times or more in 1, 2 lines
-ERROR: line 5: Parameter a occurred twice or more times in function declaration
-ERROR: line 8: Return value of duplicates is required, but the function doesn't return anything
-WARNING: line 8: Argument in duplicates is always 1
-WARNING: line 8: Argument in duplicates is always 1
-WARNING: line 8: Argument in duplicates is always 1
-ERROR: line 9: Function call to duplicates with 0 arguments without it declaration
+ERROR: line 1: Function 't' with 0 arguments is declared twice times or more in 1, 2 lines
+ERROR: line 5: Parameter 'a' occurred twice or more times in function declaration
+ERROR: line 8: Return value of 'duplicates' is required, but the function doesn't return anything
+ERROR: line 9: Function call 'duplicates' with 0 arguments without it declaration
+WARNING: line 13: Function returns const
+ERROR: line 16: Function 'returnduplicates' has two or more return statements
+WARNING: line 16: Unreachable code after line 17 because of return statement
+WARNING: line 17: Function returns const
+WARNING: line 18: Function returns const
+WARNING: line 19: Function returns const
+WARNING: line 22: Unreachable code after line 25 because of return statement

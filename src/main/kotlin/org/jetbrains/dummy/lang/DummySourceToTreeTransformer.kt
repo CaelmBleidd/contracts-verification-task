@@ -33,8 +33,8 @@ class DummySourceToTreeTransformer {
 
     private fun BlockContext.transform(): Block {
         return Block(
-            line,
-            stat().map { it.transform() }
+                line,
+                stat().map { it.transform() }
         )
     }
 
@@ -57,33 +57,33 @@ class DummySourceToTreeTransformer {
 
     private fun Return_statementContext.transform(): ReturnStatement {
         return ReturnStatement(
-            line,
-            result = expr()?.transform()
+                line,
+                result = expr()?.transform()
         )
     }
 
     private fun Var_defContext.transform(): VariableDeclaration {
         return VariableDeclaration(
-            line,
-            name = ID().text,
-            initializer = expr()?.transform()
+                line,
+                name = ID().text,
+                initializer = expr()?.transform()
         )
     }
 
     private fun AssignContext.transform(): Assignment {
         return Assignment(
-            line,
-            variable = ID().text,
-            rhs = expr().transform()
+                line,
+                variable = ID().text,
+                rhs = expr().transform()
         )
     }
 
     private fun If_statementContext.transform(): IfStatement {
         return IfStatement(
-            line,
-            condition = expr().transform(),
-            thenBlock = block(0).transform(),
-            elseBlock = block(1)?.transform()
+                line,
+                condition = expr().transform(),
+                thenBlock = block(0).transform(),
+                elseBlock = block(1)?.transform()
         )
     }
 
@@ -106,9 +106,9 @@ class DummySourceToTreeTransformer {
 
     private fun Func_callContext.transform(): FunctionCall {
         return FunctionCall(
-            line,
-            ID().text,
-            expr().map { it.transform() }
+                line,
+                ID().text,
+                expr().map { it.transform() }
         )
     }
 
@@ -117,12 +117,12 @@ class DummySourceToTreeTransformer {
 
     private object ThrowingErrorListener : BaseErrorListener() {
         override fun syntaxError(
-            recognizer: Recognizer<*, *>?,
-            offendingSymbol: Any?,
-            line: Int,
-            charPositionInLine: Int,
-            msg: String?,
-            e: RecognitionException?
+                recognizer: Recognizer<*, *>?,
+                offendingSymbol: Any?,
+                line: Int,
+                charPositionInLine: Int,
+                msg: String?,
+                e: RecognitionException?
         ) {
             throw ParseCancellationException("line $line:$charPositionInLine $msg");
         }

@@ -1,4 +1,4 @@
-// Generated from org/jetbrains/dummy/lang/DummyLanguage.g4 by ANTLR 4.7.2
+// Generated from /Users/CaelmBleidd/Programming/contracts-verification-task/src/main/antlr/org/jetbrains/dummy/lang/DummyLanguage.g4 by ANTLR 4.8
 
 package org.jetbrains.dummy.lang;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class DummyLanguageParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.7.2", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -119,6 +119,11 @@ public class DummyLanguageParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DummyLanguageListener ) ((DummyLanguageListener)listener).exitProg(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DummyLanguageVisitor ) return ((DummyLanguageVisitor<? extends T>)visitor).visitProg(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ProgContext prog() throws RecognitionException {
@@ -181,6 +186,11 @@ public class DummyLanguageParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DummyLanguageListener ) ((DummyLanguageListener)listener).exitFunc_def(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DummyLanguageVisitor ) return ((DummyLanguageVisitor<? extends T>)visitor).visitFunc_def(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -261,6 +271,11 @@ public class DummyLanguageParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DummyLanguageListener ) ((DummyLanguageListener)listener).exitBlock(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DummyLanguageVisitor ) return ((DummyLanguageVisitor<? extends T>)visitor).visitBlock(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final BlockContext block() throws RecognitionException {
@@ -329,6 +344,11 @@ public class DummyLanguageParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DummyLanguageListener ) ((DummyLanguageListener)listener).exitStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DummyLanguageVisitor ) return ((DummyLanguageVisitor<? extends T>)visitor).visitStat(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -407,6 +427,11 @@ public class DummyLanguageParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DummyLanguageListener ) ((DummyLanguageListener)listener).exitReturn_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DummyLanguageVisitor ) return ((DummyLanguageVisitor<? extends T>)visitor).visitReturn_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Return_statementContext return_statement() throws RecognitionException {
@@ -468,6 +493,11 @@ public class DummyLanguageParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DummyLanguageListener ) ((DummyLanguageListener)listener).exitIf_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DummyLanguageVisitor ) return ((DummyLanguageVisitor<? extends T>)visitor).visitIf_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -532,6 +562,11 @@ public class DummyLanguageParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DummyLanguageListener ) ((DummyLanguageListener)listener).exitAssign(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DummyLanguageVisitor ) return ((DummyLanguageVisitor<? extends T>)visitor).visitAssign(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final AssignContext assign() throws RecognitionException {
@@ -580,6 +615,11 @@ public class DummyLanguageParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DummyLanguageListener ) ((DummyLanguageListener)listener).exitVar_def(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DummyLanguageVisitor ) return ((DummyLanguageVisitor<? extends T>)visitor).visitVar_def(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -646,6 +686,11 @@ public class DummyLanguageParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DummyLanguageListener ) ((DummyLanguageListener)listener).exitFunc(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DummyLanguageVisitor ) return ((DummyLanguageVisitor<? extends T>)visitor).visitFunc(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -720,6 +765,11 @@ public class DummyLanguageParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DummyLanguageListener ) ((DummyLanguageListener)listener).exitExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DummyLanguageVisitor ) return ((DummyLanguageVisitor<? extends T>)visitor).visitExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -803,6 +853,11 @@ public class DummyLanguageParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DummyLanguageListener ) ((DummyLanguageListener)listener).exitFunc_call(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DummyLanguageVisitor ) return ((DummyLanguageVisitor<? extends T>)visitor).visitFunc_call(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 

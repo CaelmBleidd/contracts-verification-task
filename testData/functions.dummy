@@ -5,6 +5,24 @@ fun t(a) {}
 fun duplicates(a, a, a) {}
 
 fun foo(x) {
-  x = duplicates(1, 1, 1);
+  x = duplicates(1, 2, 3);
   x = duplicates();
+}
+
+fun return3() {
+    return 3;
+}
+
+fun returnduplicates() {
+    return 1;
+    return 1;
+    return 1;
+}
+
+fun returnnotlast() {
+    var x;
+    x = 4;
+    return x;
+    x = 5;
+    foo(x);
 }

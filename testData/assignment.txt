@@ -1,6 +1,6 @@
-ERROR: line 2: Assignment variable x in without declaration
-ERROR: line 4: Variable 'x' is accessed before initialization
-ERROR: line 6: Duplicate declaration of variable x
-ERROR: line 7: Function call to fact with 0 arguments without it declaration
-ERROR: line 8: Return value of withoutreturn is required, but the function doesn't return anything
-WARNING: line 9: Assignment variable y to itself
+ERROR: line 2: Assignment variable 'x' in without declaration
+ERROR: line 3: Duplicate declaration of variable 'x'
+ERROR: line 6: Duplicate declaration of variable 'x'
+ERROR: line 7: Function call 'fact' with 0 arguments without it declaration
+ERROR: line 8: Return value of 'withoutreturn' is required, but the function doesn't return anything
+WARNING: line 9: Assignment variable 'y' to itself
