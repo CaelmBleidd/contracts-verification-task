@@ -1,0 +1,87 @@
+// test unreachable code
+
+fun name() { // unreachable
+    var x;
+    return 5;
+
+    var y;
+    var z;
+}
+
+fun name2() { // unreachable
+    var x;
+    x = true;
+    if (x) {
+        return 5;
+    } else {
+        return 4;
+    }
+
+    var y;
+    var z;
+}
+
+fun name4() { // can be reached
+    var x;
+    x = true;
+    if (x) {
+        x = false;
+    } else {
+        return 5;
+    }
+
+    var y;
+    var z;
+}
+
+fun name5() { // unreachable
+    var x;
+    x = true;
+    if (x) {
+        if (x) {
+            return 5;
+        } else {
+            return 4;
+        }
+    } else {
+        return 3;
+    }
+
+    var y;
+    var z;
+}
+
+
+
+fun name6() { // can be reached
+    var x;
+    x = true;
+
+    if (x) {
+        if (x) {
+            x = false;
+        } else {
+            return 5;
+        }
+    } else {
+        return 5;
+    }
+
+    var y;
+    var z;
+}
+
+fun duplicate() {
+    var x;
+    return 5;
+    return 5;
+}
+
+fun duplicate2() {
+    if (true) {
+        return 5;
+        return 5;
+    } else {
+        return 3;
+    }
+}

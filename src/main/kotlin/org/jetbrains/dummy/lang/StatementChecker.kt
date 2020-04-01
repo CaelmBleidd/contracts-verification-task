@@ -1,7 +1,7 @@
 package org.jetbrains.dummy.lang
 
 import org.jetbrains.dummy.lang.tree.*
-import org.jetbrains.dummy.lang.DiagnosticReporter.ReportType;
+import org.jetbrains.dummy.lang.DiagnosticReporter.ReportType
 import java.lang.StringBuilder
 import kotlin.collections.HashMap
 
@@ -22,8 +22,6 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
         val variables = hashMapOf<String, Boolean>()
 
         checkParametersForDuplicates(function)
-        checkDuplicateReturnStatements(function)
-        checkIfReturnNotLastStatement(function)
         checkIfBodyIsEmpty(function)
 
         variables += function.parameters.map { Pair(it, true) }
@@ -31,7 +29,7 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
             when (statement) {
                 is Assignment -> {
                     checkAssignment(statement, variables, functionsName, functions)
-                    variables[statement.variable] = true;
+                    variables[statement.variable] = true
                 }
                 is IfStatement ->
                     checkIfStatement(statement, variables, functionsName, functions)
@@ -53,30 +51,6 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
         }
     }
 
-
-    private fun checkIfReturnNotLastStatement(function: FunctionDeclaration) {
-        val returnStatement = function.body.statements.find { it is ReturnStatement } ?: return
-        if (returnStatement != function.body.statements.last()) {
-            reportUnreachableCode(function, returnStatement)
-        }
-    }
-
-    private fun checkDuplicateReturnStatements(function: FunctionDeclaration) {
-        val ifContainsManyReturns =
-                function.body.statements.filterIsInstance<IfStatement>().map {
-                    it.thenBlock.statements.filterIsInstance<ReturnStatement>().size > 1 ||
-                            (if (it.elseBlock != null) {
-                                it.elseBlock.statements.filterIsInstance<ReturnStatement>().size > 1
-                            } else {
-                                false
-                            })
-                }.any { it }
-
-        if (function.body.statements.filterIsInstance<ReturnStatement>().size > 1 || ifContainsManyReturns) {
-            reportDuplicateReturnStatements(function)
-        }
-
-    }
 
     private fun checkAssignment(statement: Assignment,
                                 variables: HashMap<String, Boolean>,
@@ -139,8 +113,8 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
 
     private fun checkVariableAccess(rhs: VariableAccess, variables: HashMap<String, Boolean>) {
         if (!variables.containsKey(rhs.name)) {
-            reportAccessBeforeDeclaration(rhs);
-            return;
+            reportAccessBeforeDeclaration(rhs)
+            return
         }
         if (!variables[rhs.name]!!) {
             reportAccessBeforeInitialization(rhs)
@@ -251,15 +225,17 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
     }
 
 
-    private fun createNameForFunction(functionName: String, parametersSize: Int) =
-            functionName + parametersSize
-
     private fun checkDoubleDeclarations(functions: List<FunctionDeclaration>) {
-        val duplicates = functions - functions.distinctBy { createNameForFunction(it.name, it.parameters.size) }
-        for (duplicate in duplicates.distinctBy { createNameForFunction(it.name, it.parameters.size) }) {
-            reportDoubleFunctionDeclaration(functions.filter {
-                createNameForFunction(duplicate.name, duplicate.parameters.size) == createNameForFunction(it.name, it.parameters.size)
-            })
+        val duplicates =
+                functions - functions.distinctBy { createNameForFunction(it.name, it.parameters.size) }
+        for (duplicate in duplicates.distinctBy {
+            createNameForFunction(it.name, it.parameters.size)
+        }) {
+            reportDoubleFunctionDeclaration(
+                    functions.filter {
+                        createNameForFunction(duplicate.name, duplicate.parameters.size) ==
+                                createNameForFunction(it.name, it.parameters.size)
+                    })
         }
     }
 
@@ -322,19 +298,6 @@ class StatementChecker(private val reporter: DiagnosticReporter) : AbstractCheck
         )
     }
 
-    private fun reportUnreachableCode(function: FunctionDeclaration, returnStatement: Statement) {
-        reporter.report(function,
-                "Unreachable code after line ${returnStatement.line} because of return statement",
-                ReportType.WARNING)
-    }
-
-    private fun reportDuplicateReturnStatements(element: Element) {
-        reporter.report(
-                element,
-                "Occurred many return statements",
-                ReportType.ERROR
-        )
-    }
 
     private fun reportUseValueInFunctionCallWithoutReturnValue(functionCall: FunctionCall) {
         reporter.report(functionCall,

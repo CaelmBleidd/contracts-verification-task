@@ -7,9 +7,9 @@ WARNING: line 5: Function 'duplicates' has empty body
 ERROR: line 8: Return value of 'duplicates' is required, but the function doesn't return anything
 ERROR: line 9: Function call 'duplicates' with 0 arguments without it declaration
 WARNING: line 13: Function returns const
-ERROR: line 16: Occurred many return statements
-WARNING: line 16: Unreachable code after line 17 because of return statement
 WARNING: line 17: Function returns const
 WARNING: line 18: Function returns const
 WARNING: line 19: Function returns const
-WARNING: line 22: Unreachable code after line 25 because of return statement
+ERROR: line 16: Function has too many return statements
+WARNING: line 17: Unreachable code after line 17 because of return statement in function 'returnduplicates'
+WARNING: line 25: Unreachable code after line 25 because of return statement in function 'returnnotlast'

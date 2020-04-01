@@ -19,6 +19,11 @@ class DummyLanguageTestGenerated : AbstractDummyLanguageTest() {
     }
     
     @Test
+    fun testFunctionchecker() {
+        doTest("testData/functionchecker.dummy")
+    }
+    
+    @Test
     fun testFunctions() {
         doTest("testData/functions.dummy")
     }

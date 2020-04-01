@@ -1,0 +1,21 @@
+WARNING: line 5: Function returns const
+WARNING: line 15: Function returns const
+WARNING: line 17: Function returns const
+WARNING: line 30: Function returns const
+WARNING: line 42: Function returns const
+WARNING: line 44: Function returns const
+WARNING: line 47: Function returns const
+WARNING: line 64: Function returns const
+WARNING: line 67: Function returns const
+WARNING: line 76: Function returns const
+WARNING: line 77: Function returns const
+WARNING: line 81: Boolean const uses in condition, so 'else' block is unreachable
+WARNING: line 82: Function returns const
+WARNING: line 83: Function returns const
+WARNING: line 85: Function returns const
+WARNING: line 5: Unreachable code after line 5 because of return statement in function 'name'
+WARNING: line 14: Unreachable code after line 14 because of return statement in function 'name2'
+WARNING: line 40: Unreachable code after line 40 because of return statement in function 'name5'
+ERROR: line 74: Function has too many return statements
+WARNING: line 76: Unreachable code after line 76 because of return statement in function 'duplicate'
+ERROR: line 80: Function has too many return statements
