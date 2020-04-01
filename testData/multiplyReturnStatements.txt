@@ -1,0 +1,9 @@
+WARNING: line 2: Function returns const
+WARNING: line 3: Function returns const
+WARNING: line 7: Boolean const uses in condition, so 'else' block is unreachable
+WARNING: line 8: Function returns const
+WARNING: line 9: Function returns const
+WARNING: line 11: Function returns const
+ERROR: line 1: Function has too many return statements
+WARNING: line 2: Unreachable code after line 2 because of return statement in function 'test'
+ERROR: line 6: Function has too many return statements

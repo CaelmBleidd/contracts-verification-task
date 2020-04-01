@@ -1,0 +1,2 @@
+ERROR: line 2: Return value of 'empty' is required, but the function doesn't return anything
+WARNING: line 5: Function 'empty' has empty body

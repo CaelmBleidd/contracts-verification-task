@@ -1,0 +1,1 @@
+WARNING: line 2: Function returns const

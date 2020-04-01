@@ -1,0 +1,3 @@
+ERROR: line 2: Function call 'test' with 2 arguments without it declaration
+ERROR: line 3: Function call 'testt' with 0 arguments without it declaration
+WARNING: line 6: Function 'test' has empty body

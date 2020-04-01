@@ -1,0 +1,1 @@
+ERROR: line 2: Assignment variable 'x' in without declaration

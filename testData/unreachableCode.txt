@@ -1,0 +1,6 @@
+WARNING: line 2: Function returns const
+WARNING: line 9: Boolean const uses in condition, so 'else' block is unreachable
+WARNING: line 10: Function returns const
+WARNING: line 12: Function returns const
+WARNING: line 2: Unreachable code after line 2 because of return statement in function 'test'
+WARNING: line 9: Unreachable code after line 9 because of return statement in function 'test2'

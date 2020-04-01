@@ -1,0 +1,3 @@
+WARNING: line 2: Boolean const uses in condition, so 'else' block is unreachable
+WARNING: line 2: Empty block, can be safely removed
+WARNING: line 4: Empty block, can be safely removed

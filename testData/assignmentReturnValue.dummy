@@ -1,0 +1,5 @@
+fun test() {
+    var x = empty();
+}
+
+fun empty() {}

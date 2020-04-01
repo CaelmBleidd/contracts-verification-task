@@ -1,0 +1,2 @@
+WARNING: line 2: Return value of function 'const5' is ignored
+WARNING: line 6: Function returns const

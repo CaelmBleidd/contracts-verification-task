@@ -1,0 +1,6 @@
+fun test() {
+    test(1, 1);
+    testt();
+}
+
+fun test(a) {}

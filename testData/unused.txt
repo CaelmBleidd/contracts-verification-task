@@ -1,0 +1,2 @@
+WARNING: line 3: Unused expression
+WARNING: line 4: Unused expression

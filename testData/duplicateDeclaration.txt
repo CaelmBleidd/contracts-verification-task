@@ -1,0 +1,1 @@
+ERROR: line 3: Duplicate declaration of variable 'x'

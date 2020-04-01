@@ -1,0 +1,4 @@
+ERROR: line 1: Function 'test' with 0 arguments is declared twice times or more in 1, 2 lines
+WARNING: line 1: Function 'test' has empty body
+WARNING: line 2: Function 'test' has empty body
+WARNING: line 3: Function 'test' has empty body

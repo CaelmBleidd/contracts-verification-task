@@ -1,0 +1,17 @@
+fun test() {
+    return 5;
+
+    var x;
+    var y;
+}
+
+fun test2() {
+    if (true) {
+        return 5;
+    } else {
+        return 3;
+    }
+
+    var x;
+    var y;
+}

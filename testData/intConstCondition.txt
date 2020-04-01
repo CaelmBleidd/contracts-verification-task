@@ -1,0 +1,2 @@
+WARNING: line 2: Non boolean variables uses in condition
+WARNING: line 2: Empty block, can be safely removed

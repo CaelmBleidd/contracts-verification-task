@@ -1,0 +1,2 @@
+ERROR: line 1: Parameter 'a' occurred twice or more times in function declaration
+WARNING: line 1: Function 'test' has empty body
